@@ -63,7 +63,9 @@ app.patch('/:id', function(req, res){
         if(result){
 
             //update task progress level
-
+            if (req.body.progress_level === undefined) {
+                result.progress_level = result.progress_level
+            } else {
             result.progress_level = req.body.progress_level;
             console.log('Patch completed for task "' + result.title + '", -> Progress Level updated to: ' + req.body.progress_level);
             console.log(figlet.textSync('Patch completed for task "' + result.title + '", -> Progress Level updated to: "' + req.body.progress_level + '",', {
@@ -73,7 +75,10 @@ app.patch('/:id', function(req, res){
                 width: 300,
                 whitespaceBreak: true
             }));
-            
+        } 
+         if (req.body.priority_level === undefined) {
+            result.priority_level = result.priority_level
+         } else {
             result.priority_level = req.body.priority_level;
             console.log(figlet.textSync('Priority Level updated to: "' + req.body.priority_level + '."', {
                 font: 'ghost',
@@ -82,7 +87,7 @@ app.patch('/:id', function(req, res){
                 width: 300,
                 whitespaceBreak: true
             }));
-
+        }
             //save changes to DB
 
             result.save().then(function(){
